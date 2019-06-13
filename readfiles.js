@@ -21,9 +21,11 @@ var promises = args.map(_path => {
     }.bind(this, _path));
 });
 
+var startTime = new Date();
 Promise.all(promises)
     .then(results => {
         console.log(`get results ${results.length}`);
         var newBuffer = Buffer.concat(results);
-        console.log(`merge results into buffer ${newBuffer.length}`);
+        var endTime = new Date();
+        console.log(`merge results into buffer ${newBuffer.length}, time cost: ${endTime - startTime}ms, speed: ${Math.floor(newBuffer.length/ 1024/1024/(endTime - startTime)*1000)} MB/s`);
     })
